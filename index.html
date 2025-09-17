@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário IFCO - Coleta de Dados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>Formulário IFCO</h1>
+            <p>Sistema de Coleta de Dados</p>
+        </header>
+
+        <!-- Simple Status Panel -->
+        <section class="status-panel card">
+            <div class="card__body">
+                <div class="status-grid">
+                    <div class="status-item">
+                        <span>Status:</span>
+                        <span id="connection-status" class="status status--success">Conectado</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Dados Coletados:</span>
+                        <span id="records-count">0</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Backup Local:</span>
+                        <span id="local-count">0 registros</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Form -->
+        <main class="main-form">
+            <form id="data-form" class="card">
+                <div class="card__body">
+                    <h2>Formulário de Coleta de Dados</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="estabelecimento">
+                            Estabelecimento <span class="required">*</span>
+                        </label>
+                        <select class="form-control" id="estabelecimento" name="estabelecimento" required>
+                            <option value="">Selecione um tipo</option>
+                            <option value="FEIRA LIVRE">FEIRA LIVRE</option>
+                            <option value="VAREJISTA NÃO CREDENCIADO">VAREJISTA NÃO CREDENCIADO</option>
+                            <option value="BANCA DE RUA">BANCA DE RUA</option>
+                            <option value="LOJA HORTIFRUTI">LOJA HORTIFRUTI</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nome_estabelecimento">
+                            Nome do Estabelecimento <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="nome_estabelecimento" name="nome_estabelecimento" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="cidade">
+                                Cidade <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="cidade" name="cidade" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="uf">
+                                UF <span class="required">*</span>
+                            </label>
+                            <select class="form-control" id="uf" name="uf" required>
+                                <option value="">Selecione UF</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="rua">
+                            Rua <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="rua" name="rua" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="cep">
+                            CEP <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000" maxlength="9" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="quantidade_caixas">
+                                Quantidade de Caixas <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-control" id="quantidade_caixas" name="quantidade_caixas" min="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="data">
+                                Data <span class="required">*</span>
+                            </label>
+                            <input type="date" class="form-control" id="data" name="data" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nome_analista">
+                            Nome do Analista <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="nome_analista" name="nome_analista" required>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Informações do Fornecedor (Opcional)</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="nome_fornecedor">
+                                Nome do Fornecedor
+                            </label>
+                            <input type="text" class="form-control" id="nome_fornecedor" name="nome_fornecedor">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="codigo_fornecedor">
+                                Código do Fornecedor
+                            </label>
+                            <input type="text" class="form-control" id="codigo_fornecedor" name="codigo_fornecedor">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary btn--full-width">
+                            Enviar Formulário
+                        </button>
+                        <button type="button" class="btn btn--outline btn--full-width" id="clear-form">
+                            Limpar Formulário
+                        </button>
+                        <button type="button" class="btn btn--secondary btn--full-width" id="export-data">
+                            Exportar Backup Local (CSV)
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <!-- Success Message -->
+        <div id="success-message" class="modal hidden">
+            <div class="modal-content">
+                <h3>✅ Dados enviados com sucesso!</h3>
+                <p id="success-details">As informações foram registradas no Google Sheets e salvas localmente como backup.</p>
+                <button class="btn btn--primary" id="close-success">OK</button>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="modal hidden">
+            <div class="modal-content">
+                <h3>⚠️ Aviso</h3>
+                <p id="error-details">Houve um problema ao enviar os dados, mas eles foram salvos localmente como backup.</p>
+                <button class="btn btn--primary" id="close-error">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
