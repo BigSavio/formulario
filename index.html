@@ -3,194 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário IFCO - Coleta de Dados</title>
+    <title>IFCO Systems - Reporte de Caixas Encontradas</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
+        <!-- Professional Header -->
         <header class="app-header">
-            <h1>Formulário IFCO</h1>
-            <p>Sistema de Coleta de Dados</p>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="ifco-logo">
+                        <div class="logo-icon">
+                            <span>IFCO</span>
+                        </div>
+                        <div class="logo-text">
+                            <h1>IFCO Systems</h1>
+                            <p>Sistema Profissional de Reporte</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <div class="connection-status">
+                        <div class="status-dot" id="status-dot"></div>
+                        <span id="connection-text">Sistema Online</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <!-- Simple Status Panel -->
-        <section class="status-panel card">
-            <div class="card__body">
-                <div class="status-grid">
-                    <div class="status-item">
-                        <span>Status:</span>
-                        <span id="connection-status" class="status status--success">Conectado</span>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Statistics Panel -->
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="total-boxes">0</span>
+                        <span class="stat-label">Total de Caixas</span>
                     </div>
-                    <div class="status-item">
-                        <span>Dados Coletados:</span>
-                        <span id="records-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="total-submissions">0</span>
+                        <span class="stat-label">Reportes Enviados</span>
                     </div>
-                    <div class="status-item">
-                        <span>Backup Local:</span>
-                        <span id="local-count">0 registros</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">☁️</div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="cloud-submissions">0</span>
+                        <span class="stat-label">Sincronizados</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💾</div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="local-submissions">0</span>
+                        <span class="stat-label">Backup Local</span>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Main Form -->
-        <main class="main-form">
-            <form id="data-form" class="card">
-                <div class="card__body">
-                    <h2>Formulário de Coleta de Dados</h2>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="estabelecimento">
-                            Estabelecimento <span class="required">*</span>
-                        </label>
-                        <select class="form-control" id="estabelecimento" name="estabelecimento" required>
-                            <option value="">Selecione um tipo</option>
-                            <option value="FEIRA LIVRE">FEIRA LIVRE</option>
-                            <option value="VAREJISTA NÃO CREDENCIADO">VAREJISTA NÃO CREDENCIADO</option>
-                            <option value="BANCA DE RUA">BANCA DE RUA</option>
-                            <option value="LOJA HORTIFRUTI">LOJA HORTIFRUTI</option>
-                        </select>
-                    </div>
+            <!-- Main Title Section -->
+            <div class="title-section">
+                <h1 class="main-title">Reporte de Caixas Encontradas</h1>
+                <p class="title-description">Sistema integrado para reportar containers IFCO encontrados em estabelecimentos não credenciados</p>
+            </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="nome_estabelecimento">
-                            Nome do Estabelecimento <span class="required">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="nome_estabelecimento" name="nome_estabelecimento" required>
-                    </div>
+            <!-- Data Collection Form -->
+            <div class="form-section">
+                <div class="form-container">
+                    <form id="data-form" class="professional-form">
+                        <!-- Establishment Information -->
+                        <div class="form-group-section">
+                            <div class="section-header">
+                                <h3>📍 Informações do Estabelecimento</h3>
+                                <div class="section-progress">
+                                    <div class="progress-dot" data-step="1"></div>
+                                    <div class="progress-dot" data-step="2"></div>
+                                </div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="estabelecimento">
+                                        Tipo de Estabelecimento <span class="required">*</span>
+                                    </label>
+                                    <select class="form-control" id="estabelecimento" name="estabelecimento" required>
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="FEIRA LIVRE">Feira Livre</option>
+                                        <option value="VAREJISTA NÃO CREDENCIADO">Varejista Não Credenciado</option>
+                                        <option value="BANCA DE RUA">Banca de Rua</option>
+                                        <option value="LOJA HORTIFRUTI">Loja Hortifruti</option>
+                                    </select>
+                                </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label" for="cidade">
-                                Cidade <span class="required">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="cidade" name="cidade" required>
+                                <div class="form-group">
+                                    <label class="form-label" for="nome_estabelecimento">
+                                        Nome do Estabelecimento <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="nome_estabelecimento" name="nome_estabelecimento" required>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label" for="uf">
-                                UF <span class="required">*</span>
-                            </label>
-                            <select class="form-control" id="uf" name="uf" required>
-                                <option value="">Selecione UF</option>
-                                <option value="AC">AC</option>
-                                <option value="AL">AL</option>
-                                <option value="AP">AP</option>
-                                <option value="AM">AM</option>
-                                <option value="BA">BA</option>
-                                <option value="CE">CE</option>
-                                <option value="DF">DF</option>
-                                <option value="ES">ES</option>
-                                <option value="GO">GO</option>
-                                <option value="MA">MA</option>
-                                <option value="MT">MT</option>
-                                <option value="MS">MS</option>
-                                <option value="MG">MG</option>
-                                <option value="PA">PA</option>
-                                <option value="PB">PB</option>
-                                <option value="PR">PR</option>
-                                <option value="PE">PE</option>
-                                <option value="PI">PI</option>
-                                <option value="RJ">RJ</option>
-                                <option value="RN">RN</option>
-                                <option value="RS">RS</option>
-                                <option value="RO">RO</option>
-                                <option value="RR">RR</option>
-                                <option value="SC">SC</option>
-                                <option value="SP">SP</option>
-                                <option value="SE">SE</option>
-                                <option value="TO">TO</option>
-                            </select>
-                        </div>
-                    </div>
+                        <!-- Location Information -->
+                        <div class="form-group-section">
+                            <div class="section-header">
+                                <h3>🗺️ Localização</h3>
+                                <div class="section-progress">
+                                    <div class="progress-dot" data-step="1"></div>
+                                    <div class="progress-dot" data-step="2"></div>
+                                    <div class="progress-dot" data-step="3"></div>
+                                    <div class="progress-dot" data-step="4"></div>
+                                </div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="cidade">
+                                        Cidade <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="cidade" name="cidade" required>
+                                </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="rua">
-                            Rua <span class="required">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="rua" name="rua" required>
-                    </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="uf">
+                                        Estado (UF) <span class="required">*</span>
+                                    </label>
+                                    <select class="form-control" id="uf" name="uf" required>
+                                        <option value="">Selecione</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
+                                </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="cep">
-                            CEP <span class="required">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000" maxlength="9" required>
-                    </div>
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="rua">
+                                        Endereço <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="rua" name="rua" placeholder="Rua, número, bairro" required>
+                                </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label" for="quantidade_caixas">
-                                Quantidade de Caixas <span class="required">*</span>
-                            </label>
-                            <input type="number" class="form-control" id="quantidade_caixas" name="quantidade_caixas" min="1" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="data">
-                                Data <span class="required">*</span>
-                            </label>
-                            <input type="date" class="form-control" id="data" name="data" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="nome_analista">
-                            Nome do Analista <span class="required">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="nome_analista" name="nome_analista" required>
-                    </div>
-
-                    <div class="form-section">
-                        <h3>Informações do Fornecedor (Opcional)</h3>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="nome_fornecedor">
-                                Nome do Fornecedor
-                            </label>
-                            <input type="text" class="form-control" id="nome_fornecedor" name="nome_fornecedor">
+                                <div class="form-group">
+                                    <label class="form-label" for="cep">
+                                        CEP <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000" maxlength="9" required>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label" for="codigo_fornecedor">
-                                Código do Fornecedor
-                            </label>
-                            <input type="text" class="form-control" id="codigo_fornecedor" name="codigo_fornecedor">
-                        </div>
-                    </div>
+                        <!-- Collection Details -->
+                        <div class="form-group-section">
+                            <div class="section-header">
+                                <h3>📋 Detalhes do Reporte</h3>
+                                <div class="section-progress">
+                                    <div class="progress-dot" data-step="1"></div>
+                                    <div class="progress-dot" data-step="2"></div>
+                                    <div class="progress-dot" data-step="3"></div>
+                                </div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="quantidade_caixas">
+                                        Quantidade de Caixas <span class="required">*</span>
+                                    </label>
+                                    <input type="number" class="form-control" id="quantidade_caixas" name="quantidade_caixas" min="1" required>
+                                </div>
 
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn--primary btn--full-width">
-                            Enviar Formulário
-                        </button>
-                        <button type="button" class="btn btn--outline btn--full-width" id="clear-form">
-                            Limpar Formulário
-                        </button>
-                        <button type="button" class="btn btn--secondary btn--full-width" id="export-data">
-                            Exportar Backup Local (CSV)
-                        </button>
-                    </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="data">
+                                        Data do Reporte <span class="required">*</span>
+                                    </label>
+                                    <input type="date" class="form-control" id="data" name="data" required>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="nome_analista">
+                                        Nome do Responsável pelo Reporte <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="nome_analista" name="nome_analista" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Supplier Information (Optional) -->
+                        <div class="form-group-section optional-section">
+                            <div class="section-header">
+                                <h3>🏢 Informações do Fornecedor (Opcional)</h3>
+                                <div class="section-progress">
+                                    <div class="progress-dot" data-step="1"></div>
+                                    <div class="progress-dot" data-step="2"></div>
+                                </div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="nome_fornecedor">
+                                        Nome do Fornecedor
+                                    </label>
+                                    <input type="text" class="form-control" id="nome_fornecedor" name="nome_fornecedor">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="codigo_fornecedor">
+                                        Código do Fornecedor
+                                    </label>
+                                    <input type="text" class="form-control" id="codigo_fornecedor" name="codigo_fornecedor">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn--primary btn--large">
+                                <span class="btn-icon">📤</span>
+                                Enviar Reporte
+                            </button>
+                            <button type="button" class="btn btn--secondary" id="clear-form">
+                                <span class="btn-icon">🔄</span>
+                                Limpar Formulário
+                            </button>
+                            <button type="button" class="btn btn--outline" id="export-data">
+                                <span class="btn-icon">💾</span>
+                                Exportar Dados
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </main>
 
-        <!-- Success Message -->
-        <div id="success-message" class="modal hidden">
+        <!-- Success Modal -->
+        <div id="success-modal" class="modal hidden">
+            <div class="modal-backdrop"></div>
             <div class="modal-content">
-                <h3>✅ Dados enviados com sucesso!</h3>
-                <p id="success-details">As informações foram registradas no Google Sheets e salvas localmente como backup.</p>
-                <button class="btn btn--primary" id="close-success">OK</button>
+                <div class="modal-header">
+                    <div class="success-icon">✅</div>
+                    <h3>Reporte Enviado com Sucesso!</h3>
+                </div>
+                <div class="modal-body">
+                    <p id="success-message">O reporte foi registrado com sucesso no sistema.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn--primary" id="close-success">Entendido</button>
+                </div>
             </div>
         </div>
 
-        <!-- Error Message -->
-        <div id="error-message" class="modal hidden">
-            <div class="modal-content">
-                <h3>⚠️ Aviso</h3>
-                <p id="error-details">Houve um problema ao enviar os dados, mas eles foram salvos localmente como backup.</p>
-                <button class="btn btn--primary" id="close-error">OK</button>
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">IFCO</span>
+                    <span class="footer-text">Sistema Profissional de Reporte</span>
+                </div>
+                <div class="footer-credits">
+                    <p>Developed by <strong>Savio Sousa</strong></p>
+                </div>
             </div>
-        </div>
+        </footer>
     </div>
 
     <script src="app.js"></script>
